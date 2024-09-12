@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGAA - Sistema Integrado de Gestión Académica y Administrativa</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        /* Header */
+        header {
+            background-color: #8B0000;
+            color: white;
+            padding: 1rem 0;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .nav-buttons button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin-left: 10px;
+            padding: 5px 10px;
+        }
+        .nav-buttons button:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        /* Main content */
+        main {
+            padding: 2rem 0;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+            padding: 1rem;
+        }
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        /* Tabs */
+        .tabs {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+        .tab {
+            background-color: #f0f0f0;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+        .tab.active {
+            background-color: white;
+            border-bottom: 2px solid #8B0000;
+        }
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        /* Buttons */
+        .btn {
+            background-color: #8B0000;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        .btn:hover {
+            background-color: #6d0000;
+        }
+        /* Forms */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, select, textarea {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 0.5rem;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        /* Utilities */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="https://sigaa.upb.edu.co/css/images/sgu-logo.png" alt="Sigaa Logo">
+                <h1>SIGAA</h1>
+            </div>
+            <nav class="nav-buttons">
+                <button id="notificationsBtn">Notificaciones</button>
+                <button id="configBtn">Configuración</button>
+                <button>Cerrar Sesión</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="dashboard">
+            <div class="tabs">
+                <button class="tab active" data-tab="personal">Información Personal</button>
+                <button class="tab" data-tab="academic">Información Académica</button>
+                <button class="tab" data-tab="services">Servicios</button>
+            </div>
+            <div id="personal" class="tab-content">
+                <div class="grid">
+                    <div class="card">
+                        <h2 class="card-title">Actualizar Información Personal</h2>
+                        <button class="btn" data-view="actualizarDatos">Actualizar Datos</button>
+                    </div>
+                    <div class="card">
+                        <h2 class="card-title">Encuestas Generales</h2>
+                        <button class="btn" data-view="verEncuestas">Ver Encuestas</button>
+                    </div>
+                </div>
+            </div>
+            <div id="academic" class="tab-content hidden">
+                <div class="grid">
+                    <div class="card">
+                        <h2 class="card-title">Registro de Cursos</h2>
+                        <button class="btn" data-view="registroCursos">Gestionar Cursos</button>
+                    </div>
+                    <div class="card">
+                        <h2 class="card-title">Horario Semanal</h2>
+                        <button class="btn" data-view="horarioSemanal">Ver Horario</button>
+                    </div>
+                    <div class="card">
+                        <h2 class="card-title">Estado de Cuenta</h2>
+                        <button class="btn" data-view="estadoCuenta">Ver Estado</button>
+                    </div>
+                </div>
+            </div>
+            <div id="services" class="tab-content hidden">
+                <div class="grid">
+                    <div class="card">
+                        <h2 class="card-title">Solicitud de Servicios</h2>
+                        <button class="btn" data-view="solicitudServicios">Solicitar Servicio</button>
+                    </div>
+                    <div class="card">
+                        <h2 class="card-title">Proceso de Titulación</h2>
+                        <button class="btn" data-view="procesoTitulacion">Iniciar Proceso</button>
+                    </div>
+                    <div class="card">
+                        <h2 class="card-title">Recursos Digitales</h2>
+                        <button class="btn" data-view="recursosDigitales">Explorar Recursos</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="actualizarDatos" class="view hidden">
+            <button class="btn" onclick="showDashboard()">Volver al Inicio</button>
+            <div class="card">
+                <h2 class="card-title">Actualizar Información Personal</h2>
+                <form>
+                    <input type="text" placeholder="Nombre">
+                    <input type="text" placeholder="Apellido">
+                    <input type="email" placeholder="Correo electrónico">
+                    <input type="tel" placeholder="Teléfono">
+                    <button type="submit" class="btn">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="verEncuestas" class="view hidden">
+            <button class="btn" onclick="showDashboard()">Volver al Inicio</button>
+            <div class="card">
+                <h2 class="card-title">Encuestas Disponibles</h2>
+                <div id="encuestasList"></div>
+            </div>
+        </div>
+
+        <div id="registroCursos" class="view hidden">
+            <button class="btn" onclick="showDashboard()">Volver al Inicio</button>
+            <div class="card">
+                <h2 class="card-title">Registro de Cursos</h2>
+                <table id="cursosTable"></table>
+            </div>
+        </div>
+
+        <div id="horarioSemanal" class="view hidden">
+            <button class="btn" onclick="showDashboard()">Volver al Inicio</button>
+            <div class="card">
+                <h2 class="card-title">Horario Semanal</h2>
+                <table id="horarioTable"></table>
+            </div>
+        </div>
+
+        <div id="estadoCuenta" class="view hidden">
+            <button class="btn" onclick="showDashboard()">Volver al Inicio</button>
+            <div class="card">
+                <h2 class="card-title">Estado de Cuenta</h2>
+                <table id="estadoCuentaTable"></table>
+            </div>
+        </div>
+
+        <div id="solicitudServicios" class="view hidden">
+            <button class="btn" onclick="showDashboard()">Volver al Inicio</button>
+            <div class="card">
+                <h2 class="card-title">Solicitud de Servicios</h2>
+                <form>
+                    <select>
+                        <option value="">Selecciona un servicio</option>
+                        <option value="certificado">Certificado de Estudios</option>
+                        <option value="constancia">Constancia de Matrícula</option>
+                        <option value="transcripcion">Transcripción de Notas</option>
+                    </select>
+                    <textarea placeholder="Proporciona detalles adicionales si es necesario"></textarea>
+                    <button type="submit" class="btn">Enviar Solicitud</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="procesoTitulacion" class="view hidden">
+            <button class="btn" onclick="showDashboard()">Volver al Inicio</button>
+            <div class="card">
+                <h2 class="card-title">Proceso de Titulación</h2>
+                <div id="pasosTitulacion"></div>
+                <button class="btn">Iniciar siguiente paso</button>
+            </div>
+        </div>
+
+        <div id="recursosDigitales" class="view hidden">
+            <button class="btn" onclick="showDashboard()">Volver al Inicio</button>
+            <div class="card">
+                <h2 class="card-title">Recursos Digitales</h2>
+                <input type="text" placeholder="Buscar recursos...">
+                <div id="recursosList"></div>
+            </div>
+        </div>
+
+        <div id="configuracion" class="view hidden">
+            <button class="btn" onclick="showDashboard()">Volver al Inicio</button>
+            <div class="card">
+                <h2 class="card-title">Configuración</h2>
+                <div>
+                    <label>
+                        <input type="checkbox"> Notificaciones por correo
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox"> Modo oscuro
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Idioma:
+                        <select>
+                            <option value="es">Español</option>
+                            <option value="en">English</option>
+                        </select>
+                    </label>
+                </div>
+                <button class="btn">Guardar cambios</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Datos de ejemplo
+        const encuestas = [
+            { id: 1, titulo: "Satisfacción estudiantil 2023" },
+            { id: 2, titulo: "Evaluación de servicios universitarios" },
+            { id: 3, titulo: "Preferencias de horarios" },
+        ];
+
+        const cursos = [
+            { id: 1, codigo: "MAT101", nombre: "Cálculo I", creditos: 4, cupos: 30 },
+            { id: 2, codigo: "FIS201", nombre: "Física General", creditos: 3, cupos: 25 },
+            { id: 3, codigo: "PROG301", nombre: "Programación Avanzada", creditos: 4, cupos: 20 },
+        ];
+
+        const horario = [
+            { hora: "08:00 - 10:00", lunes: "MAT101", martes: "", miercoles: "FIS201", jueves: "", viernes: "PROG301" },
+            { hora: "10:00 - 12:00", lunes: "", martes: "FIS201", miercoles: "", jueves: "MAT101", viernes: "" },
+            { hora: "14:00 - 16:00", lunes: "PROG301", martes: "", miercoles: "MAT101", jueves: "FIS201", viernes: "" },
+        ];
+
+        const transacciones = [
+            { id: 1, fecha: "2023-05-01", descripcion: "Matrícula Semestre 2023-2", monto: 1500000 },
+            { id: 2, fecha: "2023-05-15", descripcion: "Pago parcial", monto: -750000 },
+            { id: 3, fecha: "2023-06-01", descripcion: "Cargo por laboratorio", monto: 200000 },
+        ];
+
+        const pasos = [
+            { id: 1, nombre: "Completar créditos académicos", completado: true },
+            { id: 2, nombre: "Aprobar examen de grado", completado: true },
+            { id: 3, nombre: "Entregar trabajo de grado", completado: false },
+            { id: 4, nombre: "Pagar derechos de grado", completado: false },
+            { id: 5, nombre: "Ceremonia de graduación", completado: false },
+        ];
+
+        const recursos = [
+            { id: 1, nombre: "Base de datos científica", descripcion: "Acceso a artículos académicos" },
+            { id: 2, nombre: "Biblioteca virtual", descripcion: "Libros electrónicos de todas las disciplinas" },
+            { id: 3, nombre: "Repositorio institucional", descripcion: "Trabajos de grado y tesis" },
+        ];
+
+        // Funciones de utilidad
+        function showView(viewId) {
+            document.querySelectorAll('.view').forEach(view => view.classList.add('hidden'));
+            document.getElementById(viewId).classList.remove('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+        }
+
+        function showDashboard() {
+            document.querySelectorAll('.view').forEach(view => view.classList.add('hidden'));
+            document.getElementById('dashboard').classList.remove('hidden');
+        }
+
+        // Event Listeners
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+                document.getElementById(this.dataset.tab).classList.remove('hidden');
+            });
+        });
+
+        document.querySelectorAll('[data-view]').forEach(button => {
+            button.addEventListener('click', function() {
+                showView(this.dataset.view);
+            });
+        });
+
+        document.getElementById('configBtn').addEventListener('click', () => showView('configuracion'));
+
+        // Inicialización de vistas
+        function initEncuestas() {
+            const list = document.getElementById('encuestasList');
+            list.innerHTML = encuestas.map(encuesta => `
+                <div>
+                    <span>${encuesta.titulo}</span>
+                    <button class="btn">Responder</button>
+                </div>
+            `).join('');
+        }
+
+        function initCursos() {
+            const table = document.getElementById('cursosTable');
+            table.innerHTML = `
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Créditos</th>
+                    <th>Cupos</th>
+                    <th>Acción</th>
+                </tr>
+                ${cursos.map(curso => `
+                    <tr>
+                        <td>${curso.codigo}</td>
+                        <td>${curso.nombre}</td>
+                        <td>${curso.creditos}</td>
+                        <td>${curso.cupos}</td>
+                        <td><button class="btn">Inscribir</button></td>
+                    </tr>
+                `).join('')}
+            `;
+        }
+
+        function initHorario() {
+            const table = document.getElementById('horarioTable');
+            table.innerHTML = `
+                <tr>
+                    <th>Hora</th>
+                    <th>Lunes</th>
+                    <th>Martes</th>
+                    <th>Miércoles</th>
+                    <th>Jueves</th>
+                    <th>Viernes</th>
+                </tr>
+                ${horario.map(fila => `
+                    <tr>
+                        <td>${fila.hora}</td>
+                        <td>${fila.lunes}</td>
+                        <td>${fila.martes}</td>
+                        <td>${fila.miercoles}</td>
+                        <td>${fila.jueves}</td>
+                        <td>${fila.viernes}</td>
+                    </tr>
+                `).join('')}
+            `;
+        }
+
+        function initEstadoCuenta() {
+            const table = document.getElementById('estadoCuentaTable');
+            const saldoTotal = transacciones.reduce((total, t) => total + t.monto, 0);
+            table.innerHTML = `
+                <tr>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                    <th>Monto</th>
+                </tr>
+                ${transacciones.map(t => `
+                    <tr>
+                        <td>${t.fecha}</td>
+                        <td>${t.descripcion}</td>
+                        <td>${t.monto.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+                    </tr>
+                `).join('')}
+                <tr>
+                    <td colspan="2"><strong>Saldo Total</strong></td>
+                    <td><strong>${saldoTotal.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</strong></td>
+                </tr>
+            `;
+        }
+
+        function initProcesoTitulacion() {
+            const list = document.getElementById('pasosTitulacion');
+            list.innerHTML = pasos.map(paso => `
+                <div>
+                    ${paso.completado ? '✅' : '⭕'} ${paso.nombre}
+                </div>
+            `).join('');
+        }
+
+        function initRecursosDigitales() {
+            const list = document.getElementById('recursosList');
+            list.innerHTML = recursos.map(recurso => `
+                <div>
+                    <h3>${recurso.nombre}</h3>
+                    <p>${recurso.descripcion}</p>
+                    <button class="btn">Acceder</button>
+                </div>
+            `).join('');
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            initEncuestas();
+            initCursos();
+            initHorario();
+            initEstadoCuenta();
+            initProcesoTitulacion();
+            initRecursosDigitales();
+        });
+    </script>
+</body>
+</html>
